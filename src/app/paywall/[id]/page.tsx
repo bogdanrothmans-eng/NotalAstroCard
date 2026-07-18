@@ -7,17 +7,10 @@ import { useAppStore } from "@/store/useAppStore";
 import { useHydrated } from "@/lib/useHydrated";
 import { useNav } from "@/lib/nav";
 import { T } from "@/lib/tokens";
+import Image from "next/image";
 import { Screen, BackSquare } from "@/components/ui";
-import { ZodiacWheel } from "@/components/ui/ZodiacWheel";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { confirmPaid, fetchPaidStatus, isInsideTelegram, openInvoice, requestInvoiceLink } from "@/lib/telegram";
-
-const SLIDES: [string, string][] = [
-  ["Личность", "Что у тебя в ядре и как это проявляется в характере"],
-  ["Эмоции", "Что тебе важно, что выводит из равновесия и как ты восстанавливаешься"],
-  ["Отношения", "Как ты сближаешься, чего ждём от партнёра и что может тебя ранить"],
-  ["Работа", "Где ты раскрываешься, что мотивирует и как ты принимаешь решения"],
-];
 
 const STARS_PRICE = 150;
 
@@ -28,7 +21,6 @@ export default function PaywallPage() {
   const reports = useAppStore((s) => s.reports);
   const unlock = useAppStore((s) => s.unlock);
 
-  const [slide, setSlide] = useState(2);
   const [processing, setProcessing] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -92,32 +84,16 @@ export default function PaywallPage() {
         <BackSquare onClick={back} />
       </div>
 
-      {/* hero card: illustration on top, caption below, dots under */}
-      <div style={{ display: "flex", flexDirection: "column", gap: 16, alignItems: "center" }}>
-        <div style={{ width: "100%", background: T.surface, border: `1px solid ${T.borderSubtle}`, borderRadius: 16, padding: 16, display: "flex", flexDirection: "column", gap: 16 }}>
-          <div style={{ borderRadius: 8, overflow: "hidden" }}>
-            <ZodiacWheel h={189} />
-          </div>
-          <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
-            <div style={{ color: "#FFFFFF", fontSize: 20, fontWeight: 500 }}>{SLIDES[slide][0]}</div>
-            <div style={{ color: "rgba(255,255,255,0.6)", fontSize: 14, lineHeight: 1.4 }}>{SLIDES[slide][1]}</div>
-          </div>
-        </div>
-        <div style={{ display: "flex", gap: 6, justifyContent: "center" }}>
-          {SLIDES.map((_, i) => (
-            <span
-              key={i}
-              onClick={() => setSlide(i)}
-              style={{
-                width: i === slide ? 8 : 6,
-                height: i === slide ? 8 : 6,
-                borderRadius: "50%",
-                cursor: "pointer",
-                background: i === slide ? T.white : "rgba(255,255,255,0.3)",
-              }}
-            />
-          ))}
-        </div>
+      {/* hero illustration — same treatment as onboarding */}
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <Image
+          src="/Astrocard_paywall.png"
+          alt="Иллюстрация натальной карты"
+          width={343}
+          height={310}
+          priority
+          style={{ objectFit: "contain" }}
+        />
       </div>
 
       <h1 style={{ color: T.textPrimary, fontSize: 24, fontWeight: 700, lineHeight: 1.3, letterSpacing: "0.12px", margin: "24px 0 0" }}>
