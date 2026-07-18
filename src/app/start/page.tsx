@@ -27,10 +27,11 @@ export default function StartPage() {
         <Image
           src="/Astrocard.png"
           alt="Планеты и звёзды"
-          width={300}
-          height={300}
+          width={1029}
+          height={930}
+          sizes="300px"
           priority
-          style={{ objectFit: "contain" }}
+          style={{ width: 300, height: "auto", objectFit: "contain" }}
         />
       </div>
       <h1 style={{ color: "#FFFFFF", fontSize: 24, fontWeight: 700, lineHeight: 1.2, margin: "16px 0 24px" }}>

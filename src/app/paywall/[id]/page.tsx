@@ -89,10 +89,11 @@ export default function PaywallPage() {
         <Image
           src="/Astrocard_paywall.png"
           alt="Иллюстрация натальной карты"
-          width={343}
-          height={310}
+          width={1029}
+          height={930}
+          sizes="450px"
           priority
-          style={{ objectFit: "contain" }}
+          style={{ width: "100%", maxWidth: 343, height: "auto", objectFit: "contain" }}
         />
       </div>
 
