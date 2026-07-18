@@ -72,7 +72,8 @@ export default function ShortReportPage() {
           style={{
             position: "relative",
             margin: 0,
-            paddingLeft: 21,
+            padding: 0,
+            listStyle: "none",
             color: "rgba(255,255,255,0.6)",
             fontSize: 14,
             lineHeight: 1.4,
@@ -81,12 +82,19 @@ export default function ShortReportPage() {
             gap: 2,
           }}
         >
-          <li>Как ты проявляешься в отношениях</li>
-          <li>Что тебя заряжает и выматывает</li>
-          <li>Где твои сильные стороны</li>
-          <li>Какие паттерны могут мешать</li>
-          <li>Как ты работаешь и принимаешь решения</li>
-          <li>Персональные рекомендации</li>
+          {[
+            "Как ты проявляешься в отношениях",
+            "Что тебя заряжает и выматывает",
+            "Где твои сильные стороны",
+            "Какие паттерны могут мешать",
+            "Как ты работаешь и принимаешь решения",
+            "Персональные рекомендации",
+          ].map((t) => (
+            <li key={t} style={{ display: "flex", gap: 8 }}>
+              <span aria-hidden="true">•</span>
+              {t}
+            </li>
+          ))}
         </ul>
         <div style={{ position: "relative", display: "flex", flexDirection: "column", gap: 8 }}>
           <button
