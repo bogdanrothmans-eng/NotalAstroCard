@@ -25,7 +25,7 @@ export default function StartPage() {
     >
       <div style={{ marginTop: 4, display: "flex", justifyContent: "center" }}>
         <Image
-          src="/onboarding-planets.png"
+          src="/Astrocard.png"
           alt="Планеты и звёзды"
           width={300}
           height={300}
