@@ -58,6 +58,8 @@ export type ReportStatus = "short" | "full";
 export interface NatalReport {
   id: string;
   birthData: BirthData;
+  /** Computed astronomical chart. Absent on reports created by the old mock engine. */
+  chart?: import("@/lib/astro/chart").ChartSummary;
   status: ReportStatus;
   isUnlocked: boolean;
   createdAt: string;

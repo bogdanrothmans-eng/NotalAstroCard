@@ -3,7 +3,7 @@
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 import type { AppSettings, BirthData, NatalReport } from "@/types";
-import { generateNatalReport } from "@/lib/astro/mockNatalEngine";
+import { generateNatalReport } from "@/lib/astro/realNatalEngine";
 
 const emptyBirth: BirthData = {
   name: "",
@@ -25,7 +25,7 @@ interface AppState {
   setBirth: (partial: Partial<BirthData>) => void;
   resetBirth: () => void;
   /** Builds a report from the current draft birthData and returns its id. */
-  createReport: () => string;
+  createReport: () => Promise<string>;
   unlock: (id: string) => void;
   setLastOpened: (id: string) => void;
   deleteReport: (id: string) => void;
@@ -45,8 +45,8 @@ export const useAppStore = create<AppState>()(
 
       resetBirth: () => set({ birthData: { ...emptyBirth } }),
 
-      createReport: () => {
-        const report = generateNatalReport(get().birthData);
+      createReport: async () => {
+        const report = await generateNatalReport(get().birthData);
         set((s) => ({
           reports: [report, ...s.reports],
           lastOpenedReportId: report.id,

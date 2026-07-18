@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { useAppStore } from "@/store/useAppStore";
 import { useNav } from "@/lib/nav";
 import { T, R } from "@/lib/tokens";
@@ -19,9 +20,17 @@ export default function CheckPage() {
     ["Место рождения", b.birthPlace],
   ];
 
-  const build = () => {
-    createReport();
-    go("loading");
+  const [building, setBuilding] = useState(false);
+
+  const build = async () => {
+    if (building) return;
+    setBuilding(true);
+    try {
+      await createReport();
+      go("loading");
+    } finally {
+      setBuilding(false);
+    }
   };
 
   return (
@@ -29,7 +38,7 @@ export default function CheckPage() {
       bottom={
         <div style={{ display: "flex", gap: 12 }}>
           <BackSquare onClick={() => go("timeBirth")} />
-          <PrimaryButton onClick={build}>Построить карту</PrimaryButton>
+          <PrimaryButton onClick={build}>{building ? "Строим карту…" : "Построить карту"}</PrimaryButton>
         </div>
       }
     >

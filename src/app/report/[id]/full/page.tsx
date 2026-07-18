@@ -10,6 +10,7 @@ import { T } from "@/lib/tokens";
 import { Screen } from "@/components/ui";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { fetchPaidStatus, isInsideTelegram } from "@/lib/telegram";
+import { SIGNS_IN } from "@/lib/astro/chart";
 import type { FullReportSectionKey } from "@/types";
 
 const SECTIONS: [FullReportSectionKey, string][] = [
@@ -94,8 +95,13 @@ export default function FullReportPage() {
         <div style={{ position: "absolute", top: -30, left: -30, width: 150, height: 130, background: "radial-gradient(ellipse at center, rgba(140,99,255,0.36), rgba(140,99,255,0))", filter: "blur(18px)", pointerEvents: "none" }} />
         <div style={{ position: "relative", color: "#FFFFFF", fontSize: 12, textTransform: "uppercase", fontWeight: 500 }}>Коротко о тебе</div>
         <div style={{ position: "relative", color: "rgba(255,255,255,0.78)", fontSize: 14, lineHeight: 1.5 }}>
-          В твоей карте сочетаются устойчивость, чувствительность и сильная внутренняя концентрация. Ты можешь выглядеть
-          спокойно, но внутри проживать всё глубже, чем показываешь.
+          {report.chart
+            ? [
+                `Солнце ${SIGNS_IN[report.chart.sun.signIndex]}`,
+                `Луна ${SIGNS_IN[report.chart.moon.signIndex]}`,
+                ...(report.chart.ascendant ? [`асцендент ${SIGNS_IN[report.chart.ascendant.signIndex]}`] : []),
+              ].join(" · ")
+            : "В твоей карте сочетаются устойчивость, чувствительность и сильная внутренняя концентрация. Ты можешь выглядеть спокойно, но внутри проживать всё глубже, чем показываешь."}
         </div>
       </div>
 

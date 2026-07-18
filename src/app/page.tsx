@@ -7,7 +7,7 @@ import { useHydrated } from "@/lib/useHydrated";
 import { useNav } from "@/lib/nav";
 import { T } from "@/lib/tokens";
 import { Screen, Tile } from "@/components/ui";
-import { generateTodayInsight } from "@/lib/astro/mockNatalEngine";
+import { generateTodayInsight } from "@/lib/astro/realNatalEngine";
 
 export default function HomePage() {
   const hydrated = useHydrated();
